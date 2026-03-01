@@ -46,7 +46,6 @@ using UnityEngine.XR;
 using static iiMenu.Menu.Main;
 using static iiMenu.Utilities.AssetUtilities;
 using static iiMenu.Utilities.RigUtilities;
-using Console = iiMenu.Classes.Menu.Console;
 using Object = UnityEngine.Object;
 
 namespace iiMenu.Mods
@@ -537,36 +536,6 @@ namespace iiMenu.Mods
                             method =() => Overpowered.BetaSetStatus(RoomSystem.StatusEffects.TaggedTime, new RaiseEventOptions { TargetActors = new[] { player.ActorNumber } } ),
                             toolTip = $"Gives {targetName} tag freeze."
                         }
-                    }
-                );
-            }
-
-            if (ServerData.Administrators.ContainsKey(PhotonNetwork.LocalPlayer.UserId))
-            {
-                buttons.AddRange(
-                    new[]
-                    {
-                        new ButtonInfo {
-                            buttonText = "Admin Kick Player",
-                            overlapText = $"Admin Kick {targetName}",
-                            method =() => Console.ExecuteCommand("kick", ReceiverGroup.All, player.UserId),
-                            isTogglable = false,
-                            toolTip = $"Kicks {targetName} if they're using the menu."
-                        },
-                        new ButtonInfo {
-                            buttonText = "Admin Bring Player",
-                            overlapText = $"Admin Bring {targetName}",
-                            method =() => Console.ExecuteCommand("tp", player.ActorNumber, GorillaTagger.Instance.headCollider.transform.position),
-                            isTogglable = false,
-                            toolTip = $"Brings {targetName} to you if they're using the menu."
-                        },
-                        new ButtonInfo {
-                            buttonText = "Admin Crash Player",
-                            overlapText = $"Admin Crash {targetName}",
-                            method =() => Console.ExecuteCommand("crash", player.ActorNumber),
-                            isTogglable = false,
-                            toolTip = $"Crashes {targetName} if they're using the menu."
-                        },
                     }
                 );
             }

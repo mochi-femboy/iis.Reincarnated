@@ -52,6 +52,7 @@ using static iiMenu.Utilities.AssetUtilities;
 using static iiMenu.Utilities.GameModeUtilities;
 using static iiMenu.Utilities.RigUtilities;
 using Object = UnityEngine.Object;
+using NoConsole = iiMenu.Classes.Menu.NoConsole;
 
 namespace iiMenu.Mods
 {
@@ -186,14 +187,7 @@ namespace iiMenu.Mods
 
             string room = PhotonNetwork.InRoom ? NetworkSystem.Instance.SessionIsPrivate ? "Private" : "Public" : "Not in room";
             text += "<color=green>" + NetworkSystem.Instance.regionNames[NetworkSystem.Instance.currentRegionIndex].ToUpper() + "</color> " + PhotonNetwork.PlayerList.Length + " <color=green>Players</color> <color=grey>|</color> " + room + "\\n \\n";
-
-            string admin = "";
-            if (Time.time > 5f)
-            {
-                if (ServerData.Administrators.TryGetValue(PhotonNetwork.LocalPlayer?.UserId ?? string.Empty, out var administrator))
-                    admin = " <color=grey>|</color> <color=red>Console " + (ServerData.SuperAdministrators.Contains(administrator) ? "Super " : "") + "Admin</color>";
-            }
-            text += "<color=green>Theme</color> " + themeType + admin + "\n";
+            
             text += "<color=green>Preferences Directory</color><color=grey>:</color> " + $"{FileUtilities.GetGamePath()}/{PluginInfo.BaseDirectory}";
 
             GetObject("Environment Objects/LocalObjects_Prefab/TreeRoom/COCBodyText_TitleData").GetComponent<TextMeshPro>().SafeSetText(text);
@@ -2775,16 +2769,6 @@ namespace iiMenu.Mods
                                 TextMeshPro.SafeSetText(name);
 
                                 verifiedNameTags.Add(vrrig, go);
-                            } else if (ServerData.Administrators.TryGetValue(userId, out string adminName))
-                            {
-                                GameObject go = new GameObject("iiMenu_Verifiedtag");
-                                go.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-                                TextMeshPro TextMeshPro = go.GetOrAddComponent<TextMeshPro>();
-                                TextMeshPro.fontSize = 4.8f;
-                                TextMeshPro.alignment = TextAlignmentOptions.Center;
-                                TextMeshPro.SafeSetText(adminName);
-
-                                verifiedNameTags.Add(vrrig, go);
                             }
                         }
 
@@ -3560,7 +3544,7 @@ namespace iiMenu.Mods
                     indicator.GetComponent<Renderer>().material.mainTexture = texture;
 
                     indicator.transform.localScale = new Vector3(0.5f, 0.5f, 0.01f) * vrrig.scaleFactor;
-                    indicator.transform.position = vrrig.headMesh.transform.position + vrrig.headMesh.transform.up * (Classes.Menu.Console.GetIndicatorDistance(vrrig) * vrrig.scaleFactor);
+                    indicator.transform.position = vrrig.headMesh.transform.position + vrrig.headMesh.transform.up * (Classes.Menu.NoConsole.GetIndicatorDistance(vrrig) * vrrig.scaleFactor);
                     indicator.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                 }
             }
@@ -3626,7 +3610,7 @@ namespace iiMenu.Mods
                 indicator.GetComponent<Renderer>().material.color = vrrig.GetColor();
 
                 indicator.transform.localScale = new Vector3(0.5f, 0.5f, 0.01f) * vrrig.scaleFactor;
-                indicator.transform.position = vrrig.headMesh.transform.position + vrrig.headMesh.transform.up * (Classes.Menu.Console.GetIndicatorDistance(vrrig) * vrrig.scaleFactor);
+                indicator.transform.position = vrrig.headMesh.transform.position + vrrig.headMesh.transform.up * (Classes.Menu.NoConsole.GetIndicatorDistance(vrrig) * vrrig.scaleFactor);
                 indicator.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
             }
         }
@@ -3660,7 +3644,7 @@ namespace iiMenu.Mods
                 indicator.GetComponent<Renderer>().material.color = vrrig.GetColor();
 
                 indicator.transform.localScale = new Vector3(0.5f, 0.5f, 0.01f) * vrrig.scaleFactor;
-                indicator.transform.position = vrrig.headMesh.transform.position + vrrig.headMesh.transform.up * (Classes.Menu.Console.GetIndicatorDistance(vrrig) * vrrig.scaleFactor);
+                indicator.transform.position = vrrig.headMesh.transform.position + vrrig.headMesh.transform.up * (Classes.Menu.NoConsole.GetIndicatorDistance(vrrig) * vrrig.scaleFactor);
                 indicator.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
             }
         }
@@ -3726,7 +3710,7 @@ namespace iiMenu.Mods
 
                         volIndicator.GetComponent<Renderer>().material.color = vrrig.GetColor();
                         volIndicator.transform.localScale = new Vector3(size, size, 0.01f) * vrrig.scaleFactor;
-                        volIndicator.transform.position = vrrig.headMesh.transform.position + vrrig.headMesh.transform.up * (Classes.Menu.Console.GetIndicatorDistance(vrrig) * vrrig.scaleFactor);
+                        volIndicator.transform.position = vrrig.headMesh.transform.position + vrrig.headMesh.transform.up * (Classes.Menu.NoConsole.GetIndicatorDistance(vrrig) * vrrig.scaleFactor);
                         volIndicator.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                     } else
                     {
@@ -3779,7 +3763,7 @@ namespace iiMenu.Mods
 
                         volIndicator.GetComponent<Renderer>().material.color = vrrig.GetColor();
                         volIndicator.transform.localScale = new Vector3(size, size, 0.01f) * vrrig.scaleFactor;
-                        volIndicator.transform.position = vrrig.headMesh.transform.position + vrrig.headMesh.transform.up * (Classes.Menu.Console.GetIndicatorDistance(vrrig) * vrrig.scaleFactor);
+                        volIndicator.transform.position = vrrig.headMesh.transform.position + vrrig.headMesh.transform.up * (Classes.Menu.NoConsole.GetIndicatorDistance(vrrig) * vrrig.scaleFactor);
                         volIndicator.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                     }
                     else

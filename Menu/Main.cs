@@ -63,7 +63,7 @@ using static iiMenu.Utilities.FileUtilities;
 using static iiMenu.Utilities.RandomUtilities;
 using ButtonCollider = iiMenu.Classes.Menu.ButtonCollider;
 using CommonUsages = UnityEngine.XR.CommonUsages;
-using Console = iiMenu.Classes.Menu.Console;
+using Console = iiMenu.Classes.Menu.NoConsole;
 using JoinType = GorillaNetworking.JoinType;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -124,12 +124,6 @@ namespace iiMenu.Menu
             fullModAmount ??= Buttons.buttons.SelectMany(list => list).ToArray().Length;
 
             GameObject ConsoleObject = Console.LoadConsoleImmediately();
-
-            if (ServerData.ServerDataEnabled)
-            {
-                ConsoleObject.AddComponent<FriendManager>();
-                ConsoleObject.AddComponent<PatreonManager>();
-            }
 
             try
             {
@@ -508,32 +502,12 @@ namespace iiMenu.Menu
                         potatoTime = 0f;
                 }
 
-                if (adminTime != null && PhotonNetwork.InRoom)
-                {
-                    if (PhotonNetwork.PlayerListOthers.Any(player => ServerData.Administrators.ContainsKey(player.UserId) && !Console.excludedCones.Contains(player)))
-                    {
-                        adminTime += Time.unscaledDeltaTime;
-                        if (adminTime > 10f)
-                        {
-                            adminTime = null;
-                            AchievementManager.UnlockAchievement(new AchievementManager.Achievement
-                            {
-                                name = "EEEEKK!",
-                                description = "Be in the same room as a Console administrator.",
-                                icon = "Images/Achievements/eeeekk.png"
-                            });
-                        }
-                    }
-                    else
-                        adminTime = 0f;
-                }
-
                 if (watermarkImage != null)
                     watermarkImage.GetComponent<RectTransform>().localRotation = Quaternion.Euler(new Vector3(0f, 90f, 90f - (rockWatermark ? (Mathf.Sin(Time.time * 2f) * 10f) : 0f)));
 
                 if (animatedTitle && title != null)
                 {
-                    string targetString = doCustomName ? NoRichtextTags(customMenuName) : "ii's Stupid Menu";
+                    string targetString = doCustomName ? NoRichtextTags(customMenuName) : "ii's Reincarnated";
                     int length = (int)Mathf.PingPong(Time.time / 0.25f, targetString.Length + 1);
                     title.text = length > 0 ? targetString[..length] : "";
                 }
@@ -2645,7 +2619,7 @@ namespace iiMenu.Menu
                     }
                 }.AddComponent<TextMeshPro>();
                 title.font = activeFont;
-                title.text = translate ? "ii's Stupid Menu" : "ii's <b>Stupid</b> Menu";
+                title.text = translate ? "ii's Reincarnated" : "ii's <b>Reincarnated</b>";
 
                 if (doCustomName)
                     title.text = customMenuName;
@@ -2687,7 +2661,7 @@ namespace iiMenu.Menu
 
                 if (animatedTitle)
                 {
-                    string targetString = doCustomName ? NoRichtextTags(customMenuName) : "ii's Stupid Menu";
+                    string targetString = doCustomName ? NoRichtextTags(customMenuName) : "ii's Reincarnated";
                     int length = (int)Mathf.PingPong(Time.time / 0.25f, targetString.Length);
                     title.text = length > 0 ? targetString[..length] : "";
                 }
@@ -2843,16 +2817,6 @@ namespace iiMenu.Menu
             {
                 if (!disableReturnButton && Buttons.CurrentCategoryName != "Main")
                     AddReturnButton(false);
-            }
-            
-            if (enableDebugButton)
-                AddDebugButton();
-            else
-            {
-                if (!acceptedDonations)
-                    AddDonateButton();
-                else if (ServerData.OutdatedVersion)
-                    AddUpdateButton();
             }
 
             if (!disablePageButtons && CurrentPrompt == null && !pageScrolling)
@@ -4914,17 +4878,6 @@ namespace iiMenu.Menu
             CoroutineManager.instance.StartCoroutine(TranscribeText(text, t => Sound.PlayAudio(t, disableMicrophone)));
 
         public static bool isAdmin;
-        public static void SetupAdminPanel(string playername)
-        {
-            if (dynamicSounds)
-                LoadSoundFromURL($"{PluginInfo.ServerResourcePath}/Audio/Menu/admin.ogg", "Audio/Menu/admin.ogg").Play(buttonClickVolume / 10f);
-
-            List<ButtonInfo> buttons = Buttons.buttons[Buttons.GetCategory("Main")].ToList();
-            buttons.Add(new ButtonInfo { buttonText = "Admin Mods", method = () => Buttons.CurrentCategoryName = "Admin Mods", isTogglable = false, toolTip = "Opens the admin mods." });
-            Buttons.buttons[Buttons.GetCategory("Main")] = buttons.ToArray();
-            NotificationManager.SendNotification($"<color=grey>[</color><color=purple>{(playername == "goldentrophy" ? "OWNER" : "ADMIN")}</color><color=grey>]</color> Welcome, {playername}! Admin mods have been enabled.", 10000);
-            isAdmin = true;
-        }
 
         public static string[] InfosToStrings(ButtonInfo[] array) =>
             array.Select(button => button.buttonText).ToArray();
@@ -5176,7 +5129,7 @@ namespace iiMenu.Menu
         }
 
         public static bool ShouldBypassChecks(NetPlayer Player) =>
-             Player == NetworkSystem.Instance.LocalPlayer || FriendManager.IsPlayerFriend(Player) || ServerData.Administrators.ContainsKey(Player.UserId);
+             Player == NetworkSystem.Instance.LocalPlayer;
 
         [Obsolete("PlayerIsTagged is obsolete. Use VRRigExtensions.IsTagged instead.")]
         public static bool PlayerIsTagged(VRRig Player) =>
@@ -6175,15 +6128,6 @@ namespace iiMenu.Menu
                                         try { target.method.Invoke(); } catch (Exception exc) { LogManager.LogError(
                                             $"Error with mod {target.buttonText} at {exc.StackTrace}: {exc.Message}"); }
                                 }
-                                try
-                                {
-                                    if (fromMenu && !ignoreForce && ServerData.Administrators.ContainsKey(PhotonNetwork.LocalPlayer.UserId) && rightJoystickClick && PhotonNetwork.InRoom)
-                                    {
-                                        Console.ExecuteCommand("forceenable", ReceiverGroup.Others, target.buttonText, target.enabled);
-                                        NotificationManager.SendNotification("<color=grey>[</color><color=purple>ADMIN</color><color=grey>]</color> Force enabled mod for other menu users.");
-                                        VRRig.LocalRig.PlayHandTapLocal(50, rightHand, 0.4f);
-                                    }
-                                } catch { }
 
                                 break;
                             }
@@ -6418,8 +6362,8 @@ namespace iiMenu.Menu
             NetworkSystem.Instance.OnPlayerJoined -= OnPlayerJoin;
             NetworkSystem.Instance.OnPlayerLeft -= OnPlayerLeave;
 
-            if (Console.instance != null)
-                Destroy(Console.instance.gameObject);
+            if (NoConsole.instance != null)
+                Destroy(NoConsole.instance.gameObject);
 
             if (NotificationManager.Instance != null)
             {
@@ -6945,7 +6889,6 @@ jgs \_   _/ |Oo\
         private static float fpsAvgTime;
         private static float fpsAverageNumber;
         private static float? potatoTime = 0f;
-        private static float? adminTime = 0f;
         public static bool fpsCountTimed;
         public static bool fpsCountAverage;
         public static bool ftCount;
@@ -7031,36 +6974,47 @@ jgs \_   _/ |Oo\
         public static ExtGradient backgroundColor = new ExtGradient
         {
             colors = ExtGradient.GetSimpleGradient(
-                new Color32(255, 128, 0, 128),
-                new Color32(255, 102, 0, 128)
+                new Color32(240, 255, 204, 255),
+                new Color32(214, 255, 204, 255)
             )
         };
 
         public static ExtGradient[] buttonColors = {
             new ExtGradient // Released
             {
-                colors = ExtGradient.GetSolidGradient(new Color32(170, 85, 0, 255))
+                colors = ExtGradient.GetSolidGradient(
+                    new Color32(120, 140, 70, 255)
+                )
             },
 
             new ExtGradient // Pressed
             {
-                colors = ExtGradient.GetSolidGradient(new Color32(85, 42, 0, 255))
+                colors = ExtGradient.GetSolidGradient(
+                    new Color32(85, 105, 50, 255)
+                )
             }
         };
 
         public static ExtGradient[] textColors = {
             new ExtGradient // Title
             {
-                colors = ExtGradient.GetSolidGradient(new Color32(255, 190, 125, 255))
+                colors = ExtGradient.GetSolidGradient(
+                    new Color32(70, 90, 40, 255)
+                )
             },
 
             new ExtGradient // Button Released
             {
-                colors = ExtGradient.GetSolidGradient(new Color32(255, 190, 125, 255))
+                colors = ExtGradient.GetSolidGradient(
+                    new Color32(90, 110, 55, 255)
+                )
             },
+
             new ExtGradient // Button Clicked
             {
-                colors = ExtGradient.GetSolidGradient(new Color32(255, 190, 125, 255))
+                colors = ExtGradient.GetSolidGradient(
+                    new Color32(60, 80, 35, 255)
+                )
             }
         };
 

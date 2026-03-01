@@ -1,6 +1,3 @@
-Thank you guys for 2 years, it's been a pleasure <3
-
-
 <p align="center">
   <a href="#"><img src="Resources/GitHub/icon.png"></a>
   <a href="#"><img src="Resources/GitHub/title.png"></a>
@@ -8,17 +5,9 @@ Thank you guys for 2 years, it's been a pleasure <3
 
 ---
 
-<p align="center">
-	<a href="https://github.com/iiDk-the-actual/iis.Stupid.Menu/releases"><img src="https://img.shields.io/github/v/release/iiDk-the-actual/iis.Stupid.Menu?label=version&style=for-the-badge"></a>
-	<a href="https://github.com/iiDk-the-actual/iis.Stupid.Menu/releases/latest"><img src="https://img.shields.io/github/downloads/iiDk-the-actual/iis.Stupid.Menu/latest/iis_Stupid_Menu.dll?style=for-the-badge"></a>
-	<a href="https://discord.gg/iidk"><img src="https://img.shields.io/discord/1170093288557129748?label=discord&style=for-the-badge&color=blueviolet"></a>
-</p>
+# <img src="Resources/GitHub/cone-emoji.png" height=26px> ii's Reincarnated  
 
----
-
-# <img src="Resources/GitHub/cone-emoji.png" height=26px> ii's Stupid Menu  
-
-ii's Stupid Menu is a **feature-packed** mod menu for Gorilla Tag, built by me, [**iiDk**](https://github.com/iiDk-the-actual). Whether you just want mods, are a developer, or anything inbetween, this menu has you covered. Designed to be **as useful as possible**, it includes a variety of features and options that let you customize your modding experience to your heart’s content.  
+ii's Reincarnated, originally ii's Stupid Menu is a **feature-packed** mod menu for Gorilla Tag, built originally by the one and only, [**iiDk**](https://github.com/iiDk-the-actual). Whether you just want mods, are a developer, or anything inbetween, this menu has you covered. Designed to be **as useful as possible**, it includes a variety of features and options that let you customize your modding experience to your heart’s content.  
 
 > Why settle for boring when you can have *stupidly* good?  
 
@@ -54,13 +43,13 @@ Let's bring back the collaboration of modding. No paywalls, no secrets, no malwa
 <details>
   <summary><b>💾 Installation</b></summary>
 	
-1. **Download** the latest release **[here](https://github.com/iiDk-the-actual/iis.Stupid.Menu/releases/latest)**
+1. **Download** the latest release **[here](https://github.com/mochi-femboy/iis.Reincarnated/releases/latest)**
 2. **Drag & Drop** `iis_Stupid_Menu.dll` into your plugins folder  
 3. **Launch** Gorilla Tag and enjoy!
 
 **🧱 From Source Code (for developers!)**
 
-1. Download the source code **[here](https://github.com/iiDk-the-actual/iis.Stupid.Menu/releases/latest)**
+1. Download the source code **[here](https://github.com/mochi-femboy/iis.Reincarnated/releases/latest)**
 2. Edit `Directory.Build.props` and update `<GamePath>` if your Gorilla Tag is in a custom spot
 3. Build the project with `Ctrl + Shift + B`<Br>
 ✅ The DLL will automatically go into your Gorilla Tag plugins folder
@@ -109,26 +98,7 @@ Let's bring back the collaboration of modding. No paywalls, no secrets, no malwa
   <summary><b>🗣️ Contact Information</b></summary>
 	
 Need help or want to collaborate? Here are some of my sources of contact:
-- Telegram: [@crimsoncauldron](https://t.me/crimsoncauldron)
-- Discord: [@crimsoncauldron](https://discord.gg/iidk)
-- YouTube: [@iiDk_](https://www.youtube.com/@iiDk_)
-- Email: [admin@goldentrophy.software](mailto:admin@goldentrophy.software)
-
-</details>
-
-<details open>
-  <summary><b>💖 Support</b></summary>
-	
-If you wish to support me, here are some of the ways you can!
-
-| Platform   | Link | Address |
-|------------|------|---------|
-| Bitcoin    | [![BTC](https://img.shields.io/badge/Bitcoin-Donate-yellow?style=for-the-badge&logo=bitcoin)](bitcoin:bc1qtmrqtq4ag720tvux64ff3rjp632jy2d447p3nx) | [bc1qtmrqtq4ag720tvux64ff3rjp632jy2d447p3nx](bitcoin:bc1qtmrqtq4ag720tvux64ff3rjp632jy2d447p3nx) |
-| Ethereum   | [![ETH](https://img.shields.io/badge/Ethereum-Donate-blue?style=for-the-badge&logo=ethereum)](ethereum:0xa1A78771422F602d9Ded0E8373d5A3D77E146877) | [0xa1A78771422F602d9Ded0E8373d5A3D77E146877](ethereum:0xa1A78771422F602d9Ded0E8373d5A3D77E146877) |
-| Litecoin   | [![LTC](https://img.shields.io/badge/Litecoin-Donate-lightgrey?style=for-the-badge&logo=litecoin)](litecoin:LaoNB7KADaGGb5ik8RhEBhAFdhM9pu5se5) | [LaoNB7KADaGGb5ik8RhEBhAFdhM9pu5se5](litecoin:LaoNB7KADaGGb5ik8RhEBhAFdhM9pu5se5) |
-| XRP        | [![XRP](https://img.shields.io/badge/XRP-Donate-23292F?style=for-the-badge&logo=xrp)](xrp:rpLLN1Gse5zFnVxwQkMvh6jvKKtPrAjvLV) | [rpLLN1Gse5zFnVxwQkMvh6jvKKtPrAjvLV](xrp:rpLLN1Gse5zFnVxwQkMvh6jvKKtPrAjvLV) |
-| Patreon    | [![Patreon](https://img.shields.io/badge/Patreon-iiDk-orange?style=for-the-badge&logo=patreon)](https://www.patreon.com/iiDk) | [iiDk](https://www.patreon.com/iiDk) |
-| CashApp    | [![CashApp](https://img.shields.io/badge/CashApp-$iiWasHere-green?style=for-the-badge&logo=cashapp)](https://cash.app/$iiWasHere) | [$iiWasHere](https://cash.app/$iiWasHere) |
+- Discord: https://discord.gg/wDm67ybUVF
 
 </details>
 
@@ -158,7 +128,3 @@ If you wish to support me, here are some of the ways you can!
 > 
 > You should have received a copy of the GNU General Public License
 > along with this program.  If not, see <https://www.gnu.org/licenses>.
-
-<p align="center">
-  <img src="Resources/GitHub/byebye.gif">
-</p>

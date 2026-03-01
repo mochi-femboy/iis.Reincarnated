@@ -40,7 +40,7 @@ using UnityEngine;
 using static iiMenu.Menu.Main;
 using static iiMenu.Utilities.RandomUtilities;
 using static iiMenu.Utilities.RigUtilities;
-using Console = iiMenu.Classes.Menu.Console;
+using Console = iiMenu.Classes.Menu.NoConsole;
 using Random = UnityEngine.Random;
 
 namespace iiMenu.Menu
@@ -54,7 +54,6 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Join Discord", method = Important.JoinDiscord, isTogglable = false, toolTip = "Invites you to join the ii's <b>Stupid</b> Mods Discord server."},
 
                 new ButtonInfo { buttonText = "Settings", method =() => CurrentCategoryName = "Settings", isTogglable = false, toolTip = "Opens the settings tab."},
-                new ButtonInfo { buttonText = "Friends", method =() => CurrentCategoryName = "Friends", isTogglable = false, toolTip = "Opens the friends tab."},
                 new ButtonInfo { buttonText = "Players", method = Settings.PlayersTab, isTogglable = false, toolTip = "Opens the players tab."},
 
                 new ButtonInfo { buttonText = "Favorite Mods", method =() => CurrentCategoryName = "Favorite Mods", isTogglable = false, toolTip = "Opens your favorite mods. Favorite mods with left grip."},
@@ -88,7 +87,6 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Plugin Settings", method =() => CurrentCategoryName = "Plugin Settings", isTogglable = false, toolTip = "Opens the settings for the plugins."},
 
                 new ButtonInfo { buttonText = "Soundboard Settings", method =() => CurrentCategoryName = "Soundboard Settings", isTogglable = false, toolTip = "Opens the settings for the soundboard."},
-                new ButtonInfo { buttonText = "Friend Settings", method =() => CurrentCategoryName = "Friend Settings", isTogglable = false, toolTip = "Opens the settings for the friend system."},
 
                 new ButtonInfo { buttonText = "Room Settings", method =() => CurrentCategoryName = "Room Settings", isTogglable = false, toolTip = "Opens the settings for the room mods."},
                 new ButtonInfo { buttonText = "Safety Settings", method =() => CurrentCategoryName = "Safety Settings", isTogglable = false, toolTip = "Opens the settings for the safety mods."},
@@ -2225,129 +2223,11 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Show Cosmetics", overlapText = "Show Cosmetics on Chams", toolTip = "If enabled, the cosmetics will also show through walls."}
             },
 
-            new[] { // Admin Mods (admins only) [23]
-                new ButtonInfo { buttonText = "Exit Admin Mods", method =() => CurrentCategoryName = "Main", isTogglable = false, toolTip = "Returns you back to the main page."},
-
-                new ButtonInfo { buttonText = "Mod Givers", method =() => CurrentCategoryName = "Mod Givers", isTogglable = false, toolTip = "Opens the mod givers page."},
-
-                new ButtonInfo { buttonText = "Get Menu Users", method = Experimental.GetMenuUsers, isTogglable = false, toolTip = "Detects who is using the menu."},
-                new ButtonInfo { buttonText = "Auto Get Menu Users", enableMethod =() => NetworkSystem.Instance.OnJoinedRoomEvent += Experimental.GetMenuUsers, disableMethod =() => NetworkSystem.Instance.OnJoinedRoomEvent -= Experimental.GetMenuUsers, isTogglable = true, toolTip = "Detects who is using the menu on room join."},
-                new ButtonInfo { buttonText = "Menu User Name Tags", enableMethod = Experimental.EnableAdminMenuUserTags, method = Experimental.AdminMenuUserTags, disableMethod = Experimental.DisableAdminMenuUserTags, toolTip = "Puts nametags on menu users."},
-                new ButtonInfo { buttonText = "Conduct Menu Users", enableMethod =() => { Experimental.EnableAdminMenuUserTags(); GetObject("Environment Objects/LocalObjects_Prefab/TreeRoom/CodeOfConductHeadingText").GetComponent<TextMeshPro>().text = "CONSOLE USER LIST"; GetObject("Environment Objects/LocalObjects_Prefab/TreeRoom/COCBodyText_TitleData").GetComponent<TextMeshPro>().richText = true; }, method = Experimental.ConsoleOnConduct, toolTip = "Shows menu users on the code of conduct."},
-                new ButtonInfo { buttonText = "Menu User Tracers", enableMethod = Experimental.EnableAdminMenuUserTracers, method = Experimental.MenuUserTracers, disableMethod =() => {Visuals.isLineRenderQueued = true;}, toolTip = "Puts tracers on your right hand to menu users."},
-
-                new ButtonInfo { buttonText = "Admin Kick Gun", method = Experimental.AdminKickGun, toolTip = "Kicks whoever your hand desires if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Kick All", method = Experimental.AdminKickAll, isTogglable = false, toolTip = "Kicks everyone using the menu."},
-
-                new ButtonInfo { buttonText = "Admin Crash Gun", method = Experimental.AdminCrashGun, toolTip = "Crashes whoever your hand desires if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Crash All", method = Experimental.AdminCrashAll, toolTip = "Crashes everyone using the menu."},
-
-                new ButtonInfo { buttonText = "Admin Break Game Gun", method = Experimental.AdminCrashBypassGun, toolTip = "Crashes menu users who attempt to bypass crashers, also breaks the game."},
-
-                new ButtonInfo { buttonText = "Admin Flip Menu Gun", method = Experimental.FlipMenuGun, toolTip = "Flips the menu of whoever your hand desires if they're using the menu."},
-
-                new ButtonInfo { buttonText = "Admin Freeze Gun", method =() => Experimental.AdminFreezeGun(true), toolTip = "Freezes whoever your hand desires if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Unfreeze Gun", method =() => Experimental.AdminFreezeGun(false), toolTip = "Unfreezes whoever your hand desires if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Spaz Freeze Gun", method =() => { Experimental.AdminFreezeGun(true); Experimental.AdminFreezeGun(false); }, toolTip = "Freezes and unfreezes whoever your hand desires if they're using the menu."},
-
-                new ButtonInfo { buttonText = "Admin Mute Gun", method =() => Experimental.AdminEnableGun(true, "Mute Microphone"), toolTip = "Mutes whoever your hand desires if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Unmute Gun", method =() => Experimental.AdminEnableGun(false, "Mute Microphone"), toolTip = "Unmutes whoever your hand desires if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Stutter Voice Gun", method =() => { Experimental.AdminEnableGun(true, "Mute Microphone"); Experimental.AdminEnableGun(false, "Mute Microphone"); }, toolTip = "Stutters the voice of whoever your hand desires by muting and unmuting them if they're using the menu."},
-
-                new ButtonInfo { buttonText = "Admin Jumpscare Gun", method = Experimental.AdminJumpscareGun, toolTip = "Jumpscares whoever your hand desires if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Jumpscare All", method = Experimental.AdminJumpscareAll, isTogglable = false, toolTip = "Jumpscares everyone using the menu."},
-
-                new ButtonInfo { buttonText = "Admin Mute All <color=grey>[</color><color=green>T</color><color=grey>]</color>", method = Experimental.AdminMute, toolTip = "Mutes everyone while holding trigger."},
-
-                new ButtonInfo { buttonText = "Admin Board Mute Gun", method =() => Experimental.AdminBMuteGun(true), toolTip = "Mutes whoever your hand desires for everyone using the menu."},
-                new ButtonInfo { buttonText = "Admin Board Unmute Gun", method =() => Experimental.AdminBMuteGun(false), toolTip = "Unmutes whoever your hand desires for everyone using the menu."},
-                new ButtonInfo { buttonText = "Admin Board Stutter Voice Gun", method =() => { Experimental.AdminBMuteGun(true); Experimental.AdminBMuteGun(false); }, toolTip = "Stutters the voice of whoever your hand desires for everyone using the menu by muting and unmuting them."},
-
-                new ButtonInfo { buttonText = "Admin Board Mute All", method =() => Experimental.AdminBMuteAll(true), isTogglable = false, toolTip = "Mutes everyone for players using the menu."},
-                new ButtonInfo { buttonText = "Admin Board Unmute All", method =() => Experimental.AdminBMuteAll(false), isTogglable = false, toolTip = "Unmutes everyone for players using the menu."},
-                new ButtonInfo { buttonText = "Admin Board Stutter Voice All", method =() => { Experimental.AdminBMuteAll(true); Experimental.AdminBMuteAll(false); }, toolTip = "Stutters the voice of everyone for players using the menu by muting and unmuting them."},
-
-                new ButtonInfo { buttonText = "Admin Disable Menu Gun", method =() => Experimental.AdminLockdownGun(true), toolTip = "Disables the menu of whoever your hand desires if they're using one."},
-                new ButtonInfo { buttonText = "Admin Enable Menu Gun", method =() => Experimental.AdminLockdownGun(false), toolTip = "Enables the menu of whoever your hand desires if they're using one."},
-
-                new ButtonInfo { buttonText = "Admin Disable Menu All", method =() => Experimental.AdminLockdownAll(true), toolTip = "Disables the menu of whoever your hand desires if they're using one."},
-                new ButtonInfo { buttonText = "Admin Enable Menu All", method =() => Experimental.AdminLockdownAll(false), toolTip = "Enables the menu of whoever your hand desires if they're using one."},
-
-                new ButtonInfo { buttonText = "Admin Fully Disable Menu Gun", method =() => Experimental.AdminFullLockdownGun(true), toolTip = "Disables the menu of whoever your hand desires and turns off their mods if they're using one."},
-                new ButtonInfo { buttonText = "Admin Fully Enable Menu Gun", method =() => Experimental.AdminFullLockdownGun(false), toolTip = "Enables the menu of whoever your hand desires and turns off their mods if they're using one."},
-
-                new ButtonInfo { buttonText = "Admin Fully Disable Menu All", method =() => Experimental.AdminFullLockdownAll(true), isTogglable = false, toolTip = "Disables the menu of whoever your hand desires and turns off their mods if they're using one."},
-                new ButtonInfo { buttonText = "Admin Fully Enable Menu All", method =() => Experimental.AdminFullLockdownAll(false), isTogglable = false, toolTip = "Enables the menu of whoever your hand desires and turns off their mods if they're using one."},
-
-                new ButtonInfo { buttonText = "Admin Teleport Gun", method = Experimental.AdminTeleportGun, toolTip = "Teleports whoever using the menu to wherever your hand desires."},
-                new ButtonInfo { buttonText = "Admin Fling Gun", method = Experimental.AdminFlingGun, toolTip = "Flings whoever your hand desires upwards."},
-                new ButtonInfo { buttonText = "Admin Strangle", method = Experimental.AdminStrangle, toolTip = "Strangles whoever you grab if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Fake Cosmetics", overlapText = "Admin Spoof Cosmetics", method =() => Experimental.AdminSpoofCosmetics(), enableMethod =() => { NetworkSystem.Instance.OnPlayerJoined += Experimental.OnPlayerJoinSpoof; Experimental.AdminSpoofCosmetics(true); }, disableMethod =() => { NetworkSystem.Instance.OnPlayerJoined -= Experimental.OnPlayerJoinSpoof; Experimental.oldCosmetics = null; }, toolTip = "Makes everyone using the menu see whatever cosmetics you have on as if you owned them."},
-
-                new ButtonInfo { buttonText = "Admin Lightning Gun", method = Experimental.LightningGun, toolTip = "Spawns lightning wherever your hand desires."},
-                new ButtonInfo { buttonText = "Admin Lightning Aura", method = Experimental.LightningAura, toolTip = "Spawns lightning wherever your hand desires."},
-                new ButtonInfo { buttonText = "Admin Lightning Rain", method = Experimental.LightningRain, toolTip = "Rains lightning around you and strikes whoever you hit."},
-
-                new ButtonInfo { buttonText = "Admin Laser <color=grey>[</color><color=green>A</color><color=grey>]</color>", method = Experimental.AdminLaser, toolTip = "Shines a red laser out of your hand when holding <color=green>A</color> or <color=green>X</color>."},
-                new ButtonInfo { buttonText = "Admin Beam <color=grey>[</color><color=green>T</color><color=grey>]</color>", method = Experimental.AdminBeam, toolTip = "Shines a rainbow spinning laser out of your head when holding <color=green>trigger</color>."},
-                new ButtonInfo { buttonText = "Admin Fractals <color=grey>[</color><color=green>T</color><color=grey>]</color>", method = Experimental.AdminFractals, toolTip = "Shines white lines out of your body when holding <color=green>trigger</color>."},
-
-                new ButtonInfo { buttonText = "Admin Fear Gun", method = Experimental.AdminFearGun, toolTip = "Sends a person into pure fear and scarefulness."},
-                new ButtonInfo { buttonText = "Admin Object Gun", method = Experimental.AdminObjectGun, toolTip = "Spawns an object wherever your hand desires."},
-                new ButtonInfo { buttonText = "Admin Random Object Gun", method = Experimental.AdminRandomObjectGun, toolTip = "Spawns a random object wherever your hand desires."},
-
-                new ButtonInfo { buttonText = "NotifLabel", overlapText = "No Notification Set", label = true},
-                new ButtonInfo { buttonText = "Set Notification", isTogglable = false, method = Experimental.GetTargetNotification, toolTip = "Changes the notification text. The notification text is based off of what you type into the search bar."},
-                new ButtonInfo { buttonText = "Admin Notify Self", isTogglable = false, method = Experimental.NotifySelf, toolTip = "Sends a notification to yourself. The notification text is based off of what you type into the search bar."},
-                new ButtonInfo { buttonText = "Admin Notify Gun", method = Experimental.NotifyGun, toolTip = "Sends a notification to whoever your hand desires. The notification text is based off of what you type into the search bar."},
-                new ButtonInfo { buttonText = "Admin Notify All", isTogglable = false, method = Experimental.NotifyAll, toolTip = "Sends a notification to everyone using the menu. The notification text is based off of what you type into the search bar."},
-
-                new ButtonInfo { buttonText = "Admin Join Gun", enableMethod = Experimental.GetTargetNotification, method = Experimental.JoinGun, toolTip = "Brings whoever your hand desires to a room. The room is based off of what you type into the search bar."},
-                new ButtonInfo { buttonText = "Admin Join All", isTogglable = false, method = Experimental.JoinAll, toolTip = "Brings everyone using the menu to a room. The room is based off of what you type into the search bar."},
-                new ButtonInfo { buttonText = "Admin Network Scale", method = Experimental.AdminNetworkScale, disableMethod = Experimental.UnAdminNetworkScale, toolTip = "Networks your scale to others with the menu."},
-
-                new ButtonInfo { buttonText = "Admin Confirm Notification", method = Experimental.ConfirmNotifyAllUsing, isTogglable = false, toolTip = "Sends a notification to everyone using the menu confirming that you're an admin."},
-
-                new ButtonInfo { buttonText = "Admin Levitate All", method = Experimental.FlyAllUsing, toolTip = "Sends everyone using the menu flying away upwards."},
-                new ButtonInfo { buttonText = "Admin Bouncy All", method = Experimental.BouncyAllUsing, toolTip = "Makes everyone using the menu bouncy."},
-                new ButtonInfo { buttonText = "Admin Bring Gun", method = Experimental.AdminBringGun, toolTip = "Brings whoever your hand desires to you if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Bring All", method = Experimental.BringAllUsing, toolTip = "Brings everyone using the menu to you."},
-                new ButtonInfo { buttonText = "Admin Organize Gun", method = Experimental.AdminOrganizeGun, toolTip = "Brings every menu user into a straight line."},
-                new ButtonInfo { buttonText = "Admin Bring Hand All", method = Experimental.BringHandAllUsing, toolTip = "Brings everyone using the menu to your hand."},
-                new ButtonInfo { buttonText = "Admin Bring Head All", method = Experimental.BringHeadAllUsing, toolTip = "Brings everyone using the menu to your head."},
-                new ButtonInfo { buttonText = "Admin Orbit All", method = Experimental.OrbitAllUsing, toolTip = "Makes everyone using the menu orbit you."},
-
-                new ButtonInfo { buttonText = "Admin Lag Gun", method = Experimental.AdminLagGun, toolTip = "Lags whoever your hand desires if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Lag All", method = Experimental.AdminLagAll, toolTip = "Lags everyone using the menu."},
-                new ButtonInfo { buttonText = "Admin Lag Spike Gun", method = Experimental.AdminLagSpikeGun, toolTip = "Lag spikes whoever your hand desires if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Lag Spike All", method = Experimental.AdminLagSpikeAll, isTogglable = false, toolTip = "Lag spikes everyone using the menu."},
-
-                new ButtonInfo { buttonText = "Admin Vibrate Gun", method = Experimental.AdminVibrateGun, toolTip = "Vibrate whoever your hand desires if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Vibrate All", method = Experimental.AdminVibrateAll, isTogglable = false, toolTip = "Vibrates everyone using the menu."},
-
-                new ButtonInfo { buttonText = "Admin Block Gun", method = Experimental.AdminBlockGun, toolTip = "Disables whoever your hand desires from joining servers for 5 minutes if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Announce Block Gun", method =() => Experimental.AdminABlockGun(false), toolTip = "Block gun, but it sends a notification to everyone using the menu that the target was blocked."},
-                new ButtonInfo { buttonText = "Silent Announce Block Gun", method =() => Experimental.AdminABlockGun(true), toolTip = "Block gun, but it sends a notification to everyone using the menu that the target was blocked. Hides your name."},
-
-                new ButtonInfo { buttonText = "Admin Open Menu Gun", method =() => Experimental.AdminButtonPressGun("lSecondary"), toolTip = "Force a player to open their menu."},
-                new ButtonInfo { buttonText = "Admin Toggle Invis Gun", method =() => Experimental.AdminButtonPressGun("rSecondary"), toolTip = "Force a player to toggle invisibility mod."},
-
-                new ButtonInfo { buttonText = "Admin Punch Mod", method = Experimental.AdminPunchMod, toolTip = "Flings people when you punch them if they're using the menu."},
-                new ButtonInfo { buttonText = "Admin Find User", enableMethod =() => { Experimental.EnableAdminMenuUserTags(); Experimental.FindUserTime = Time.time; }, method = Experimental.AdminFindUser, toolTip = "Joins publics until a menu user is found."},
-
-                new ButtonInfo { buttonText = "No Admin Indicator", enableMethod = Experimental.EnableNoAdminIndicator, method = Experimental.NoAdminIndicator, disableMethod = Experimental.AdminIndicatorBack, toolTip = "Disables the cone that appears above your head to others with the menu."},
-                new ButtonInfo { buttonText = "Allow Kick Self", enableMethod =() => Console.allowKickSelf = true, disableMethod =() => Console.allowKickSelf = false, toolTip = "Lets other admins kick you."},
-                new ButtonInfo { buttonText = "Disable Fling Self", enableMethod =() => Console.disableFlingSelf = true, disableMethod =() => Console.disableFlingSelf = false, toolTip = "Other admins can't fling you."},
-
-                new ButtonInfo { buttonText = "Admin Platform Exclude Gun", method =() => Experimental.AdminPlatToggleGun(true), toolTip = "Puts a player who is included for platform networking to be excluded."},
-                new ButtonInfo { buttonText = "Admin Platform Include Gun", method =() => Experimental.AdminPlatToggleGun(false), toolTip = "Puts a player who is excluded for platform networking to be included."},
-            },
-
-            new[] { // Enabled Mods [24]
+            new[] { // Enabled Mods [23]
                 new ButtonInfo { buttonText = "Exit Enabled Mods", method =() => CurrentCategoryName = "Main", isTogglable = false, toolTip = "Returns you back to the main page."},
             },
 
-            new[] { // Internal Mods (hidden from user) [25]
+            new[] { // Internal Mods (hidden from user) [24]
                 new ButtonInfo { buttonText = "Search", method = Settings.Search, isTogglable = false, toolTip = "Lets you search for specific mods."},
                 new ButtonInfo { buttonText = "Global Return", method = Settings.GlobalReturn, isTogglable = false, toolTip = "Returns you to the previous category."},
                 new ButtonInfo { buttonText = "Info Screen", method = Settings.Debug, enableMethod = Settings.ShowDebug, disableMethod = Settings.HideDebug, toolTip = "Shows game and modding related information."},
@@ -2358,11 +2238,11 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Decline Prompt", method =() => { NotificationManager.ClearAllNotifications(); if (inTextInput) Settings.DestroyKeyboard(); CurrentPrompt.DeclineAction?.Invoke(); Settings.StopCurrentPrompt(); }, isTogglable = false}
             },
 
-            new[] { // Sound Library [26]
+            new[] { // Sound Library [25]
                 new ButtonInfo { buttonText = "Exit Sound Library", method =() => Sound.LoadSoundboard(), isTogglable = false, toolTip = "Returns you back to the soundboard." }
             },
 
-            new[] { // Experimental Mods [27]
+            new[] { // Experimental Mods [26]
                 new ButtonInfo { buttonText = "Exit Experimental Mods", method =() => CurrentCategoryName = "Main", isTogglable = false, toolTip = "Returns you back to the main page."},
 
                 new ButtonInfo { buttonText = "Safe Restart Game", enableMethod =() => { Experimental.restartDelay = Time.time; Experimental.restartIndex = 0; }, method = Experimental.SafeRestartGame, toolTip = "Restarts Gorilla Tag, saving room and position data."},
@@ -2385,7 +2265,7 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Disorganize Menu", method = Settings.DisorganizeMenu, isTogglable = false, toolTip = "Disorganizes the entire menu. This cannot be undone."},
             },
 
-            new[] { // Safety Settings [28]
+            new[] { // Safety Settings [27]
                 new ButtonInfo { buttonText = "Exit Safety Settings", method =() => CurrentCategoryName = "Settings", isTogglable = false, toolTip = "Returns you back to the settings menu."},
 
                 new ButtonInfo { buttonText = "Change Anti Report Distance", overlapText = "Change Anti Report Distance <color=grey>[</color><color=green>Normal</color><color=grey>]</color>", method =() => Safety.ChangeAntiReportRange(), enableMethod =() => Safety.ChangeAntiReportRange(), disableMethod =() => Safety.ChangeAntiReportRange(false), incremental = true, isTogglable = false, toolTip = "Changes the distance threshold for the anti report mods."},
@@ -2399,9 +2279,9 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Anti Mute", enableMethod =() => Safety.antiMute = true, disableMethod =() => Safety.antiMute = false, toolTip = "Includes the mute button with the anti report mods." }
             },
 
-            new ButtonInfo[] { }, // Temporary Category [29]
+            new ButtonInfo[] { }, // Temporary Category [28]
 
-            new[] { // Soundboard Settings [30]
+            new[] { // Soundboard Settings [29]
                 new ButtonInfo { buttonText = "Exit Soundboard Settings", method =() => CurrentCategoryName = "Settings", isTogglable = false, toolTip = "Returns you back to the settings menu."},
 
                 new ButtonInfo { buttonText = "Loop Sounds", enableMethod =() => Sound.LoopAudio = true, disableMethod =() => Sound.LoopAudio = false, toolTip = "Makes sounds loop forever until stopped."},
@@ -2409,7 +2289,7 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Sound Bindings", overlapText = "Sound Bindings <color=grey>[</color><color=green>None</color><color=grey>]</color>", method =() => Sound.SoundBindings(), enableMethod =() => Sound.SoundBindings(), disableMethod =() => Sound.SoundBindings(false), incremental = true, isTogglable = false, toolTip = "Changes the button used to play sounds on the soundboard."},
             },
 
-            new[] { // Overpowered Settings [31]
+            new[] { // Overpowered Settings [30]
                 new ButtonInfo { buttonText = "Exit Overpowered Settings", method =() => CurrentCategoryName = "Settings", isTogglable = false, toolTip = "Returns you back to the settings menu."},
 
                 new ButtonInfo { buttonText = "Graphic Punch Mod", toolTip = "Spawns blood projectiles when hitting other players with the allowed punch mods."},
@@ -2432,7 +2312,7 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Mute All on Freeze", enableMethod =() => Overpowered.muteOnFreeze = true, disableMethod =() => Overpowered.muteOnFreeze = false, toolTip = "Whenever you freeze the server, everyone will be muted along with it" },
             },
 
-            new[] { // Keybind Settings [32]
+            new[] { // Keybind Settings [31]
                 new ButtonInfo { buttonText = "Exit Keybind Settings", method =() => CurrentCategoryName = "Settings", isTogglable = false, toolTip = "Returns you back to the settings menu."},
 
                 new ButtonInfo { buttonText = "Non-Toggle Keybinds", enableMethod =() => ToggleBindings = false, disableMethod =() => ToggleBindings = true, toolTip = "Enables mods while holding down the button, instead of toggling them."},
@@ -2451,34 +2331,12 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Keybind Right Joystick", enableMethod =() => Settings.StartBind("RJ"), disableMethod =() => IsBinding = false, toolTip = "Enables binding mode, letting you bind a mod to a button."},
             },
 
-            new[] { // Plugin Settings [33]
+            new[] { // Plugin Settings [32]
                 new ButtonInfo { buttonText = "Exit Plugin Settings", method =() => CurrentCategoryName = "Settings", isTogglable = false, toolTip = "Returns you back to the settings menu."},
                 new ButtonInfo { buttonText = "Reload Plugins", method = PluginManager.ReloadPlugins, isTogglable = false, toolTip = "Reloads all of your plugins." }
             },
 
-            new[] { // Friends [34]
-                new ButtonInfo { buttonText = "Exit Friends", method =() => CurrentCategoryName = "Main", isTogglable = false, toolTip = "Returns you back to the main page."},
-                new ButtonInfo { buttonText = "Loading...", label = true},
-            },
-
-            new[] { // Friend Settings [35]
-                new ButtonInfo { buttonText = "Exit Friend Settings", method =() => CurrentCategoryName = "Settings", isTogglable = false, toolTip = "Returns you back to the settings menu."},
-
-                new ButtonInfo { buttonText = "Disable Rig Networking", enableMethod =() => FriendManager.RigNetworking = false, disableMethod =() => FriendManager.RigNetworking = true, toolTip = "Disables the networking between friends when your rig is disabled."},
-                new ButtonInfo { buttonText = "Disable Platform Networking", enableMethod =() => FriendManager.PlatformNetworking = false, disableMethod =() => FriendManager.PlatformNetworking = true, toolTip = "Disables the platform networking between friends."},
-                new ButtonInfo { buttonText = "Disable Pinging", enableMethod =() => FriendManager.Pinging = false, disableMethod =() => FriendManager.Pinging = true, toolTip = "Disables the pinging feature between friends."},
-                new ButtonInfo { buttonText = "Disable Messaging", enableMethod =() => FriendManager.Messaging = false, disableMethod =() => FriendManager.Messaging = true, toolTip = "Disables the message feature between friends."},
-                new ButtonInfo { buttonText = "Disable Friend Sounds", enableMethod =() => FriendManager.SoundEffects = false, disableMethod =() => FriendManager.SoundEffects = true, toolTip = "Disables the sound effects in the friend system."},
-                new ButtonInfo { buttonText = "Friend Sided Projectiles", enableMethod =() => Projectiles.friendSided = true, disableMethod =() => Projectiles.friendSided = false, toolTip = "Makes projectiles only appear between friends."},
-                new ButtonInfo { buttonText = "Friend Projectile Scale", overlapText = "Friend Projectile Scale <color=grey>[</color><color=green>1</color><color=grey>]</color>", method =() => Projectiles.FriendProjectileScale(), enableMethod =() => Projectiles.FriendProjectileScale(), disableMethod =() => Projectiles.FriendProjectileScale(false), incremental = true, isTogglable = false, toolTip = "Changes the scale of projectiles sent by the Friend system."},
-
-                new ButtonInfo { buttonText = "Disable Invite Notifications", enableMethod =() => FriendManager.InviteNotifications = false, disableMethod =() => FriendManager.InviteNotifications = true, toolTip = "Disables the prompt and notification when getting an invite from a friend."},
-                new ButtonInfo { buttonText = "Disable Preference Sharing", enableMethod =() => FriendManager.PreferenceSharing = false, disableMethod =() => FriendManager.PreferenceSharing = true, toolTip = "Disables the prompt and notification when a friend shares their preferences with you."},
-
-                new ButtonInfo { buttonText = "Physical Platforms", enableMethod =() => FriendManager.PhysicalPlatforms = true, disableMethod =() => FriendManager.PhysicalPlatforms = false, toolTip = "Allows networked platforms to be collided with between friends."},
-            },
-
-            new[] { // Fun Settings [36]
+            new[] { // Fun Settings [33]
                 new ButtonInfo { buttonText = "Exit Fun Settings", method =() => CurrentCategoryName = "Settings", isTogglable = false, toolTip = "Returns you back to the settings menu."},
 
                 new ButtonInfo { buttonText = "Change Head Spin Speed", overlapText = "Change Head Spin Speed <color=grey>[</color><color=green>0</color><color=grey>]</color>", method =() => Fun.ChangeHeadSpinSpeed(), enableMethod =() => Fun.ChangeHeadSpinSpeed(), disableMethod =() => Fun.ChangeHeadSpinSpeed(false), incremental = true, isTogglable = false, toolTip = "Changes the speed of the head spin mods." },
@@ -2511,11 +2369,11 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Tinnitus Self", enableMethod =() => Movement.tinnitusSelf = true, disableMethod =() => Movement.tinnitusSelf = false, toolTip = "Be able to hear the loud beep the menu creates with this mod on. God save your ears."},
             },
 
-            new[] { // Players [37]
+            new[] { // Players [34]
                 new ButtonInfo { buttonText = "Exit Players", method =() => CurrentCategoryName = "Main", isTogglable = false, toolTip = "Returns you back to the main page." }
             },
 
-            new[] { // Credits [38]
+            new[] { // Credits [35]
                 new ButtonInfo { buttonText = "Exit Credits", method =() => CurrentCategoryName = "Main", isTogglable = false, toolTip = "Returns you back to the main page." },
 
                 new ButtonInfo { buttonText = "iiDk", method =() => Process.Start("https://github.com/iiDk-the-actual"), isTogglable = false, toolTip = "iiDk is the main developer of ii's <b>Stupid</b> Menu, and has been working on it since 2023. He is also the owner of ii's Stupid Mods."},
@@ -2542,25 +2400,15 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "GPL v3", method =() => Process.Start("https://www.gnu.org/licenses/gpl-3.0.html"), isTogglable = false, toolTip = "The GNU General Public License Version 3 is the license that my menu uses. It proveides a \"free, copyleft license for software and other kinds of works.\""},
             },
 
-            new[] // Custom Maps [39]
+            new[] // Custom Maps [36]
             {
                 new ButtonInfo { buttonText = "Exit Custom Maps", method =() => CurrentCategoryName = "Fun Mods", isTogglable = false, toolTip = "Returns you back to the fun mods."},
                 new ButtonInfo { buttonText = "You have not loaded a map.", label = true }
             },
 
-            new[] // Admin Mod Givers [40]
-            {
-                new ButtonInfo { buttonText = "Exit Admin Mod Givers", method =() => CurrentCategoryName = "Admin Mods", isTogglable = false, toolTip = "Returns you back to the Admin mods."},
-                new ButtonInfo { buttonText = "Give Fly Gun", method = Experimental.AdminGiveFlyGun, toolTip = "Gives whoever you want fly when they hold their right thumb down if they're using console."},
-                new ButtonInfo { buttonText = "Give Trigger Fly Gun", method = Experimental.AdminGiveTriggerFlyGun, toolTip = "Gives whoever you want fly when they hold their trigger down if they're using console."},
-                new ButtonInfo { buttonText = "Give Speed Boost Gun", method = Experimental.AdminGiveSpeedGun, toolTip = "Gives whoever you want speed boost if they're using console."},
-                new ButtonInfo { buttonText = "Give Low Gravity Gun", method = Experimental.AdminGiveLowGravity, toolTip = "Gives whoever you want low gravity if they're using console."},
-                new ButtonInfo { buttonText = "Give Platforms Gun", method = Experimental.AdminGivePlatforms, toolTip = "Gives whoever you want platforms if they're using console."},
-            },
+            new ButtonInfo[] { }, // Chat Messages [37] 
 
-            new ButtonInfo[] { }, // Chat Messages [41] 
-
-            new[] // Macros [42]
+            new[] // Macros [38]
             {
                 new ButtonInfo { buttonText = "Exit Macros", method =() => CurrentCategoryName = "Movement Mods", isTogglable = false, toolTip = "Returns you back to the movement mods." },
                 new ButtonInfo { buttonText = "Record <color=grey>[</color><color=green>T</color><color=grey>]</color>", method = Movement.RecordMacro, toolTip = "Record your macros with your <color=green>left trigger</color>." },
@@ -2568,7 +2416,7 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Disable Macros", enableMethod =() => Movement.disableMacros = true, disableMethod =() => Movement.disableMacros = false, toolTip = "Disables all macros." }
             },
 
-            new[] // Detected Mods [43]
+            new[] // Detected Mods [39]
             {
                 new ButtonInfo { buttonText = "Exit Detected Mods", method =() => CurrentCategoryName = "Main", isTogglable = false, toolTip = "Returns you back to the main page."},
 
@@ -2670,7 +2518,7 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Change Gamemode to Custom", method =() => Detected.ChangeGamemode(GorillaGameModes.GameModeType.Custom), isTogglable = false, detected = true, toolTip = "Changes the gamemode to custom."}
             },
 
-            new[] // Detected Settings [44]
+            new[] // Detected Settings [40]
             {
                 new ButtonInfo { buttonText = "Exit Detected Settings", method =() => CurrentCategoryName = "Main", isTogglable = false, toolTip = "Returns you back to the main page."},
 
@@ -2678,27 +2526,15 @@ namespace iiMenu.Menu
                 new ButtonInfo { buttonText = "Isolate Others", toolTip = "Allows you to still be seen when isolating players."}
             },
 
-            new[] // Achievements [45]
+            new[] // Achievements [41]
             {
                 new ButtonInfo { buttonText = "Exit Achievements", method = () => CurrentCategoryName = "Main", isTogglable = false, toolTip = "Returns you back to the main page." }
             },
 
-            new[] // Mod List [46]
+            new[] // Mod List [42]
             {
                 new ButtonInfo { buttonText = "Exit Mod List", method = () => CurrentCategoryName = "Main", isTogglable = false, toolTip = "Returns you back to the main page." }
             },
-
-            new[] // Patreon Mods [47]
-            {
-                new ButtonInfo { buttonText = "Exit Patreon Mods", method = () => CurrentCategoryName = "Main", isTogglable = false, toolTip = "Returns you back to the main page." },
-                new ButtonInfo { buttonText = "No Patreon Indicator", enableMethod =() => PatreonManager.ShowIndicator(true), method = PatreonManager.ConstantHideIndicator, disableMethod =() => PatreonManager.ShowIndicator(false), toolTip = "Disables the membership that appears above your head to others with the menu."}
-            },
-
-            new[] // Patreon Settings [48]
-            {
-                new ButtonInfo { buttonText = "Exit Patreon Settings", method =() => CurrentCategoryName = "Main", isTogglable = false, toolTip = "Returns you back to the main page."},
-                new ButtonInfo { buttonText = "Disable Patreon Indicators", enableMethod =() => PatreonManager.IndicatorsEnabled = false, disableMethod =() => PatreonManager.IndicatorsEnabled = true, toolTip = "Disables the memberships that appear above people's head with the menu."}
-            }
         };
 
         public static string[] categoryNames = {
@@ -2725,7 +2561,6 @@ namespace iiMenu.Menu
             "Menu Presets",
             "Advantage Settings",
             "Visual Settings",
-            "Admin Mods",
             "Enabled Mods",
             "Internal Mods",
             "Sound Library",
@@ -2736,21 +2571,16 @@ namespace iiMenu.Menu
             "Overpowered Settings",
             "Keybind Settings",
             "Plugin Settings",
-            "Friends",
-            "Friend Settings",
             "Fun Settings",
             "Players",
             "Credits",
             "Custom Maps",
-            "Mod Givers",
             "Chat Messages",
             "Macros",
             "Detected Mods",
             "Detected Settings",
             "Achievements",
             "Mod List",
-            "Patreon Mods",
-            "Patreon Settings"
         };
 
         public static int _currentCategoryIndex;

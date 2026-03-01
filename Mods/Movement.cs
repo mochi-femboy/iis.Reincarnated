@@ -200,8 +200,6 @@ namespace iiMenu.Mods
 
             if (Buttons.GetIndex("Non-Sticky Platforms").enabled)
                 platform.transform.position += right * ((left ? 1f : -1f) * ((0.025f + platform.transform.localScale.x / 2f) * (scaleWithPlayer ? GTPlayer.Instance.scale : 1f)));
-
-            FriendManager.PlatformSpawned(true, platform.transform.position, platform.transform.rotation, platform.transform.localScale, GetPlatformPrimitiveType());
         }
 
         public static int flySpeedCycle = 1;
@@ -255,8 +253,6 @@ namespace iiMenu.Mods
                             rightplat = null;
                         if (platformMode == 4 && rightplat == null)
                             UpdateClipColliders(true);
-
-                        FriendManager.PlatformDespawned(true);
                         break;
                     }
             }

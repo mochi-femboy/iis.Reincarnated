@@ -95,9 +95,6 @@ namespace iiMenu
                 if (File.ReadAllLines($"{PluginInfo.BaseDirectory}/iiMenu_Preferences.txt")[0].Split(";;").Contains("Accept TOS"))
                     TOSPatches.enabled = true;
             }
-
-            if (File.Exists($"{PluginInfo.BaseDirectory}/iiMenu_DisableTelemetry.txt"))
-                ServerData.DisableTelemetry = true;
             
             GorillaTagger.OnPlayerSpawned(LoadMenu);
         }

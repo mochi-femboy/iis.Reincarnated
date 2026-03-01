@@ -266,45 +266,27 @@ namespace iiMenu.Mods
 
                         if (PhotonNetwork.InRoom && !clientSided)
                         {
-                            if (friendSided)
+                            PhotonNetwork.RaiseEvent(176, new object[]
                             {
-                                Color32 color32 = color;
-
-                                object[] projectileSendData = new object[8];
-                                projectileSendData[0] = "sendSnowball";
-                                projectileSendData[1] = position;
-                                projectileSendData[2] = velocity;
-                                projectileSendData[3] = color32.r;
-                                projectileSendData[4] = color32.g;
-                                projectileSendData[5] = color32.b;
-                                projectileSendData[6] = GrowingSnowball.snowballSizeLevels[scale].snowballScale;
-                                projectileSendData[7] = index;
-
-                                PhotonNetwork.RaiseEvent(FriendManager.FriendByte, projectileSendData, options, SendOptions.SendUnreliable);
-                            } else
+                                GrowingSnowball.changeSizeEvent._eventId,
+                                scale
+                            }, options, new SendOptions
                             {
-                                PhotonNetwork.RaiseEvent(176, new object[]
-                                {
-                                    GrowingSnowball.changeSizeEvent._eventId,
-                                    scale
-                                }, options, new SendOptions
-                                {
-                                    Reliability = false,
-                                    Encrypt = true
-                                });
+                                Reliability = false,
+                                Encrypt = true
+                            });
 
-                                PhotonNetwork.RaiseEvent(176, new object[]
-                                {
-                                    GrowingSnowball.snowballThrowEvent._eventId,
-                                    position,
-                                    velocity,
-                                    index
-                                }, options, new SendOptions
-                                {
-                                    Reliability = false,
-                                    Encrypt = true
-                                });
-                            }
+                            PhotonNetwork.RaiseEvent(176, new object[]
+                            {
+                                GrowingSnowball.snowballThrowEvent._eventId,
+                                position,
+                                velocity,
+                                index
+                            }, options, new SendOptions
+                            {
+                                Reliability = false,
+                                Encrypt = true
+                            });
                         }
                     }
                     else
@@ -346,11 +328,6 @@ namespace iiMenu.Mods
 
                             if (showSelf)
                                 LaunchLocalProjectile(position, velocity, projectileSource, index, true, color32, friendSided ? friendProjectileScale : 1, Throwable, VRRig.LocalRig);
-                            if (!clientSided && NetworkSystem.Instance.InRoom)
-                            {
-                                PhotonNetwork.RaiseEvent(friendSided ? FriendManager.FriendByte : (byte)3, sendEventData.ToArray(), options, SendOptions.SendReliable);
-                                RPCProtection();
-                            }
                         }
                     }
                 }
