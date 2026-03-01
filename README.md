@@ -98,7 +98,7 @@ Let's bring back the collaboration of modding. No paywalls, no secrets, no malwa
   <summary><b>🗣️ Contact Information</b></summary>
 	
 Need help or want to collaborate? Here are some of my sources of contact:
-- Discord: https://discord.gg/wDm67ybUVF
+- Discord: https://discord.gg/skzTTrdkdy
 
 </details>
 
