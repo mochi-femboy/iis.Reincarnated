@@ -23,21 +23,30 @@ namespace iiMenu
 {
     public class PluginInfo
     {
-        public const string GUID = "org.iidk.gorillatag.iimenu";
-        public const string Name = "ii's Stupid Menu";
+        public const string GUID = "org.moch.reincarnated";
+        public const string Name = "ii's iisReincarnated";
         public const string Description = "Created by @crimsoncauldron with love <3... Reincarnated by mochi";
-        public const string BuildTimestamp = "2026-03-01T09:29:19Z";
-        public const string Version = "8.3.0";
+        public const string BuildTimestamp = "2026-03-02T12:33:29Z";
+        public const string Version = "1.2.0";
 
-        public const string BaseDirectory = "iisStupidMenu";
+        public const string BaseDirectory = "iisReincarnated";
         public const string ClientResourcePath = "iiMenu.Resources.Client";
-        public const string ServerResourcePath = "https://raw.githubusercontent.com/iiDk-the-actual/iis.Stupid.Menu/master/Resources/Server";
+        public const string ServerResourcePath = "https://raw.githubusercontent.com/mochi-femboy/iis.Reincarnated/tree/master/Resources/Server";
         public const string ServerAPI = "https://iidk.online"; // Server now closed source due to bad actors :( For any questions, please make an issue on the GitHub repository.
         
-        public const string Logo = @"••╹   ┏┓     • ┓  ┳┳┓      
-┓┓ ┏  ┗┓╋┓┏┏┓┓┏┫  ┃┃┃┏┓┏┓┓┏
-┗┗ ┛  ┗┛┗┗┻┣┛┗┗┻  ┛ ┗┗ ┛┗┗┻
-           ┛";
+        public const string Logo = @"                                                                             _..._                                                                                    
+                                                                          .-'_..._''.                                                                   _______       
+.--..--. ,.--.                           __.....__     .--.   _..._     .' .'      '.\                     _..._                           __.....__    \  ___ `'.    
+|__||__|//    \                      .-''         '.   |__| .'     '.  / .'                              .'     '.                     .-''         '.   ' |--.\  \   
+.--..--.\\    |            .-,.--.  /     .-''""'-.  `. .--..   .-.   .. '                       .-,.--. .   .-.   .              .|   /     .-''""'-.  `. | |    \  '  
+|  ||  | `'-)/             |  .-. |/     /________\   \|  ||  '   '  || |                 __    |  .-. ||  '   '  |    __      .' |_ /     /________\   \| |     |  ' 
+|  ||  |   /'_             | |  | ||                  ||  ||  |   |  || |              .:--.'.  | |  | ||  |   |  | .:--.'.  .'     ||                  || |     |  | 
+|  ||  |   .' |            | |  | |\    .-------------'|  ||  |   |  |. '             / |   \ | | |  | ||  |   |  |/ |   \ |'--.  .-'\    .-------------'| |     ' .' 
+|  ||  |  .   | /          | |  '-  \    '-.____...---.|  ||  |   |  | \ '.          .`"" __ | | | |  '- |  |   |  |`"" __ | |   |  |   \    '-.____...---.| |___.' /'  
+|__||__|.'.'| |//          | |       `.             .' |__||  |   |  |  '. `._____.-'/ .'.''| | | |     |  |   |  | .'.''| |   |  |    `.             .'/_______.'/   
+      .'.'.-'  /           | |         `''-...... -'       |  |   |  |    `-.______ / / /   | |_| |     |  |   |  |/ /   | |_  |  '.'    `''-...... -'  \_______|/    
+      .'   \_.'            |_|                             |  |   |  |             `  \ \._,\ '/|_|     |  |   |  |\ \._,\ '/  |   /                                  
+                                                           '--'   '--'                 `--'  `""         '--'   '--' `--'  `""   `'-'                                   ";
 
 #if DEBUG
         public static bool BetaBuild = true;
